@@ -7,6 +7,8 @@ import java.util.*;
 @Data
 public class RejectOrder extends AbstractEvent {
 
+    public RejectOrder(ShopOrder shopOrder) {
+    }
     private Long id;
     private Long menuId;
     private Long shopId;

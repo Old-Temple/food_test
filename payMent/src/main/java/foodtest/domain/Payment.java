@@ -73,9 +73,7 @@ public class Payment  {
 
 
     public void pay(){
-        Paid paid = new Paid(this);
-        paid.publishAfterCommit();
-
+        this.setStatus(true);
     }
 
 
