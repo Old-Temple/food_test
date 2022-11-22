@@ -102,43 +102,25 @@ public class ShopOrder  {
 
     public static void addOrder(Paid paid){
 
-        /** Example 1:  new item 
-        ShopOrder shopOrder = new ShopOrder();
-        repository().save(shopOrder);
-
-        */
-
-        /** Example 2:  finding and process
         
-        repository().findById(paid.get???()).ifPresent(shopOrder->{
-            
-            shopOrder // do something
-            repository().save(shopOrder);
-
-
+        repository().findById(paid.getId()).ifPresent(shopOrder->{
+            //결제값이 만원 이상이여야 주문확인됨
+            if(paid.getPrice() > 10000) {
+                shopOrder.setMenuId(paid.getMenuId());
+                repository().save(shopOrder);
+            }
          });
-        */
 
         
     }
     public static void deleteOrder(PayCancled payCancled){
 
-        /** Example 1:  new item 
-        ShopOrder shopOrder = new ShopOrder();
-        repository().save(shopOrder);
-
-        */
-
-        /** Example 2:  finding and process
         
-        repository().findById(payCancled.get???()).ifPresent(shopOrder->{
+        repository().findById(payCancled.getId()).ifPresent(shopOrder->{
             
-            shopOrder // do something
+            shopOrder.setMenuId(null);
             repository().save(shopOrder);
-
-
          });
-        */
 
         
     }

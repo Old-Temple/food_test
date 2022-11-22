@@ -129,24 +129,23 @@ public class Log  {
     }
     public static void kakaoAlert(DeliveryStarted deliveryStarted){
 
-        /** Example 1:  new item 
-        Log log = new Log();
-        repository().save(log);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(deliveryStarted.get???()).ifPresent(log->{
-            
-            log // do something
+        repository().findById(deliveryStarted.getId()).ifPresent(log->{
+            //일정시간이 지난 후에 확인하였을 때 여전히 메세지가 배달시작이라면 사고남으로 정정
+            log.setMessage("배달시작");
             repository().save(log);
 
+            try {
+                Thread.currentThread().sleep((long) 600000);
+            } catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            if(log.getMessage().equals("배달시작")){
+                log.setMessage("사고남");
+                repository().save(log);
+            }
 
          });
-        */
-
-        
     }
     public static void kakaoAlert(StartCooking startCooking){
 

@@ -7,6 +7,8 @@ import java.util.*;
 @Data
 public class DeliveryStarted extends AbstractEvent {
 
+    public DeliveryStarted(Delivery delivery) {
+    }
     private Long id;
     private Long menuId;
     private Long shopId;

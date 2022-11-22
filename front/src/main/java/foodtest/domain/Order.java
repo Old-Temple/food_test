@@ -71,7 +71,7 @@ public class Order  {
         foodtest.external.Payment payment = new foodtest.external.Payment();
         // mappings goes here
         FrontApplication.applicationContext.getBean(foodtest.external.PaymentService.class)
-            .payCancle(payment);
+            .pay(payment);
 
 
         OrderCancled orderCancled = new OrderCancled(this);
@@ -96,9 +96,11 @@ public class Order  {
     @PreRemove
     public void onPreRemove(){
         // Get request from ShopOrder
-        //foodtest.external.ShopOrder shopOrder =
-        //    Application.applicationContext.getBean(foodtest.external.ShopOrderService.class)
-        //    .getShopOrder(/** mapping value needed */);
+        foodtest.external.ShopOrder shopOrder =
+        FrontApplication.applicationContext.getBean(foodtest.external.ShopOrderService.class)
+           .getShopOrder(this.getId());
+        
+        if(shopOrder.getMenuId() < 1) throw new RuntimeException("Out of Stock!");
 
     }
 
@@ -130,17 +132,12 @@ public class Order  {
         repository().save(order);
 
         */
-
-        /** Example 2:  finding and process
         
-        repository().findById(acceptOrder.get???()).ifPresent(order->{
+        repository().findById(acceptOrder.getId()).ifPresent(order->{
             
-            order // do something
+            order.setStatus(acceptOrder.getStatus());
             repository().save(order);
-
-
          });
-        */
 
         
     }
